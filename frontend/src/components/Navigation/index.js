@@ -23,15 +23,15 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul>
-      <li>
+    <div>
+      <div>
         <NavLink exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
-      </li>
-      <li>
+      </div>
+      <div>
         <NavLink to='/places'>Tree Houses</NavLink>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
 

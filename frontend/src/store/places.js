@@ -22,6 +22,10 @@ export const getPlaceList = () => async dispatch => {
     }
 };
 
+const initialState = {
+    list: [],
+}
+
 const placesReducer = (state = initialState, action) => {
     switch(action.type) {
         case PLACES_LIST:
