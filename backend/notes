@@ -1,0 +1,1 @@
+npx sequelize-cli model:generate --name Place --attributes address:string,city:string,state:string,country:string,name:string,price:decimal,createdAt:date,updatedAt:date
