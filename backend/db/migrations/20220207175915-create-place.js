@@ -30,7 +30,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
