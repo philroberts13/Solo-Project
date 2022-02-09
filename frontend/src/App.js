@@ -6,6 +6,8 @@ import PlacesPage from './components/PlacesPage';
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import PlaceDetailPage from "./components/PlaceDetailPage";
+import CreateListingPage from './components/CreateListingPage';
+import SplashPage from './components/SplashPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +21,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path='/'>
+            <SplashPage />
+          </Route>
           <Route path="/signup">
             <SignupFormPage />
           </Route>
@@ -27,6 +32,9 @@ function App() {
           </Route>
           <Route exact path='/places/:placeId'>
             <PlaceDetailPage />
+          </Route>
+          <Route exact path='/placesForm'>
+            <CreateListingPage />
           </Route>
         </Switch>
       )}

@@ -27,6 +27,7 @@ function PlacesPage() {
                     {place.name}, {place.city}
                 </NavLink>))}
             </ul>
+            <NavLink to={'/placesForm'}>Create Listing</NavLink>
         </div>
     )
 }

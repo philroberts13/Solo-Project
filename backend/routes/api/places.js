@@ -11,6 +11,7 @@ router.get('/', asyncHandler(async function(req, res) {
     return res.json(places);
   }));
 
+
 router.get('/:id', asyncHandler(async function(req, res) {
   const place = await Place.findByPk(req.params.id);
 

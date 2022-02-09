@@ -19,9 +19,12 @@ function PlaceDetailPage() {
     return (
         <div>
             <h1>{place.name}</h1>
+            <ul>{place.address}</ul>
             <ul>
-
+            {place.city}, {place.state}
             </ul>
+            <ul>Per Night:  ${place.price}</ul>
+            <button>Book</button>
         </div>
     )
 }
