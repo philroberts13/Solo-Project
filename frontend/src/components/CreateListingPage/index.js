@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import { createPlace } from "../../store/places";
+import placesReducer, { createPlace } from "../../store/places";
 import * as sessionActions from "../../store/session";
 
 
@@ -32,9 +32,10 @@ function CreateListingPage() {
 
 
         let createdPlace = await dispatch(createPlace(newPlace));
+        console.log(createdPlace);
 
         if (createdPlace.id) {
-          history.push(`/places/${createdPlace.id}`);
+          history.push(`/placesForm/${createdPlace.id}`);
 
         }
       };
@@ -44,7 +45,7 @@ function CreateListingPage() {
         <h1>
             Hello!
         </h1>
-        <form>
+        <form onSubmit={handleSubmit}>
         <label>
         Title
         <input

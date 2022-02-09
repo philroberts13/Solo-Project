@@ -13,8 +13,9 @@ router.get('/', asyncHandler(async function(req, res) {
   }));
 
 router.post('/', asyncHandler(async function (req, res) {
-    const id = await Place.create(req.body);
-    return res.redirect(`${req.baseUrl}/${id}`);
+    const place = await Place.create(req.body);
+    console.log(req.body)
+    return res.json(place);
   })
 );
 
