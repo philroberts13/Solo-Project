@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD_PLACES = 'places/LOAD_PLACES';
 const ADD_PLACE = 'places/ADD_PLACE';
+const LOAD_ONE = 'places/LOAD_ONE'
 
 const load = list => ({
     type: LOAD_PLACES,
@@ -13,19 +14,37 @@ const addPlace = place => ({
     place
 })
 
+const onePlace = list => ({
+    type: LOAD_ONE,
+    list
+})
+
 export const getPlaceList = () => async dispatch => {
     const response = await fetch('/api/places');
 
     if(response.ok) {
         const list = await response.json();
-        console.log(list);
         dispatch(load(list));
     }
 };
 
+
+export const getPlaceById = (id) => async (dispatch) => {
+    const response = await fetch(`/api/places/${id}`);
+    console.log('hi')
+    if(response.ok) {
+        let list = await response.json();
+        console.log(list)
+        dispatch(onePlace(list));
+    }
+
+    return response;
+}
+
 const initialState = {}
 
 const placesReducer = (state = initialState, action) => {
+
     switch(action.type) {
         case LOAD_PLACES:
             const allPlaces = {}
@@ -36,6 +55,31 @@ const placesReducer = (state = initialState, action) => {
                 ...allPlaces,
                 ...state,
             }
+        case LOAD_ONE:
+            const place = {...state}
+            let newList = {}
+            newList[action.list.id] = action.list
+            place.list = newList
+            return place;
+
+        case ADD_PLACE:
+          if (!state[action.place.id]) {
+            const newState = {
+                ...state,
+                [action.place.id]: action.place
+            };
+            const placeList = newState.list.map(id => newState[id]);
+            placeList.push(action.place);
+            newState.list = placeList;
+            return newState;
+         }
+         return {
+             ...state,
+             [action.place.id]: {
+                 ...state[action.place.id],
+                 ...state.place
+             }
+         }
         default: return state;
     }
 }
