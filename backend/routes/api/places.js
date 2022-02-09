@@ -18,22 +18,6 @@ router.get('/:id', asyncHandler(async function(req, res) {
   return res.json(place);
   }));
 
-  router.post('/', asyncHandler(async function (req, res) {
-      const id = await Place.create(req.body);
-      return res.redirect(`${req.baseUrl}/${id}`);
-    })
-  );
 
-  router.put('/:id',asyncHandler(async function (req, res) {
-      const id = await Place.update(req.body);
-      const place = await Place.one(id);
-      return res.json(place);
-    })
-  );
-
-  router.delete("/:id", asyncHandler(async function (req, res) {
-    const id = await Place.deleteItem(req.params.id);
-    return res.json({ id });
-  }));
 
 module.exports = router;

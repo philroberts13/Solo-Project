@@ -24,7 +24,7 @@ function PlaceDetailPage() {
             {place.city}, {place.state}
             </ul>
             <ul>Per Night:  ${place.price}</ul>
-            <button>Book</button>
+            <button>Book</button> <button>Edit</button> <button>Delete</button>
         </div>
     )
 }

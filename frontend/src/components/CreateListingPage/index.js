@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { createPlace } from "../../store/places";
 import * as sessionActions from "../../store/session";
+
 
 function CreateListingPage() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
@@ -12,11 +16,35 @@ function CreateListingPage() {
     const [country, setCountry] = useState("");
     const [price, setPrice] = useState(0);
 
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const newPlace = {
+            name,
+            address,
+            city,
+            state,
+            country,
+            price,
+        };
+
+
+
+        let createdPlace = await dispatch(createPlace(newPlace));
+
+        if (createdPlace.id) {
+          history.push(`/places/${createdPlace.id}`);
+
+        }
+      };
+
     return (
     <div>
         <h1>
             Hello!
         </h1>
+        <form>
         <label>
         Title
         <input
@@ -72,6 +100,7 @@ function CreateListingPage() {
         />
       </label>
       <button type="submit">Create</button>
+      </form>
     </div>
     )
 }

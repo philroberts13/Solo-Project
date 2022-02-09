@@ -31,7 +31,6 @@ export const getPlaceList = () => async dispatch => {
 
 export const getPlaceById = (id) => async (dispatch) => {
     const response = await fetch(`/api/places/${id}`);
-    console.log('hi')
     if(response.ok) {
         let list = await response.json();
         console.log(list)
@@ -40,6 +39,21 @@ export const getPlaceById = (id) => async (dispatch) => {
 
     return response;
 }
+
+export const createPlace = (payload) => async (dispatch) => {
+    const response = await csrfFetch('/api/placesForm', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    })
+    console.log(response)
+    if(response.ok){
+      const newPlace = await response.json()
+      dispatch(addPlace(newPlace))
+      return newPlace;
+    }
+    return response;
+  }
 
 const initialState = {}
 
