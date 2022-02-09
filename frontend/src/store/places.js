@@ -1,10 +1,10 @@
 import { csrfFetch } from './csrf';
 
-const PLACES_LIST = 'places/PLACES_LIST';
+const LOAD_PLACES = 'places/LOAD_PLACES';
 const ADD_PLACE = 'places/ADD_PLACE';
 
 const load = list => ({
-    type: PLACES_LIST,
+    type: LOAD_PLACES,
     list
 });
 
@@ -18,17 +18,16 @@ export const getPlaceList = () => async dispatch => {
 
     if(response.ok) {
         const list = await response.json();
+        console.log(list);
         dispatch(load(list));
     }
 };
 
-const initialState = {
-    list: [],
-}
+const initialState = {}
 
 const placesReducer = (state = initialState, action) => {
     switch(action.type) {
-        case PLACES_LIST:
+        case LOAD_PLACES:
             const allPlaces = {}
             action.list.forEach(place => {
                 allPlaces[place.id] = place;
@@ -37,6 +36,7 @@ const placesReducer = (state = initialState, action) => {
                 ...allPlaces,
                 ...state,
             }
+        default: return state;
     }
 }
 

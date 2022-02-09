@@ -12,7 +12,8 @@ router.get('/', asyncHandler(async function(req, res) {
   }));
 
 router.get('/:id', asyncHandler(async function(req, res) {
-  const place = await place.one(req.params.id);
+  const place = await Place.findOne(req.params.id);
+
   return res.json(place);
   }));
 
@@ -28,7 +29,6 @@ router.get('/:id', asyncHandler(async function(req, res) {
       return res.json(place);
     })
   );
-
 
   router.delete("/:id", asyncHandler(async function (req, res) {
     const id = await Place.deleteItem(req.params.id);

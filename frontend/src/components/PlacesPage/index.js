@@ -7,21 +7,25 @@ import * as sessionActions from "../../store/session";
 function PlacesPage() {
     const dispatch = useDispatch();
 
-    const { place } = useParams();
+    // const { placeId } = useParams();
 
-    // const place = useSelector(state => {
-    //     return state.place.list.map(placeId => state.place[placeId]);
-    //   });
+    const places = useSelector(state => {
+        return Object.values(state.places);
+      });
 
       useEffect(() => {
         dispatch(getPlaceList())
       }, [dispatch]);
 
+      if(!places) return null;
+
     return (
         <div>
             <h1>Tree Houses</h1>
             <ul>
-                {/* {place.name} */}
+                {places.map(place => (<div key={place.id}>
+                    {place.name}
+                </div>))}
             </ul>
         </div>
     )

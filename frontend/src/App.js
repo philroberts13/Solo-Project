@@ -24,6 +24,9 @@ function App() {
           <Route path='/places'>
             <PlacesPage />
           </Route>
+          <Route path='/places/:placeId'>
+            <PlacesPage />
+          </Route>
         </Switch>
       )}
     </>
