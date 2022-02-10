@@ -13,8 +13,8 @@ router.get('/', asyncHandler(async function(req, res) {
   }));
 
 router.post('/', asyncHandler(async function (req, res) {
+  console.log(req.body, "a'lsdkjf;alksdjfa;lksdjfa;lksdjf;alksdjf;alsdkfja;lsdkfja;sldkfja;lskdjf;alskdjfa;lsdkfja;sldkfja;sldkfj")
     const place = await Place.create(req.body);
-    console.log(req.body)
     return res.json(place);
   })
 );

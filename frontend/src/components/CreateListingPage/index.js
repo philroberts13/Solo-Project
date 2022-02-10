@@ -30,14 +30,10 @@ function CreateListingPage() {
         };
 
 
+    let createdPlace = await dispatch(createPlace(newPlace));
 
-        let createdPlace = await dispatch(createPlace(newPlace));
-        console.log(createdPlace);
+    history.push("/places")
 
-        if (createdPlace.id) {
-          history.push(`/placesForm/${createdPlace.id}`);
-
-        }
       };
 
     return (

@@ -9,7 +9,7 @@ const load = list => ({
     list
 });
 
-const addPlace = place => ({
+const addPlace = (place) => ({
     type: ADD_PLACE,
     place
 })
@@ -82,20 +82,22 @@ const placesReducer = (state = initialState, action) => {
                 ...state,
                 [action.place.id]: action.place
             };
-            const placeList = newState.list.map(id => newState[id]);
-            placeList.push(action.place);
-            newState.list = placeList;
             return newState;
-         }
-         return {
-             ...state,
-             [action.place.id]: {
-                 ...state[action.place.id],
-                 ...state.place
-             }
-         }
+        }
+        return {
+            ...state,
+            [action.place.id]: {
+                ...state[action.place.id],
+                ...state.place
+            }
+        }
         default: return state;
     }
 }
 
 export default placesReducer;
+
+
+// const placeList = newState.list.map(id => newState[id]);
+// placeList.push(action.place);
+// newState.list = placeList;
