@@ -1,24 +1,34 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createPlace } from "../../store/places";
+import { editPlace } from "../../store/places";
 
 
-function CreateListingPage() {
+function EditPlacePage({place}) {
+
     const dispatch = useDispatch();
     const history = useHistory();
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
-    const [price, setPrice] = useState(0);
+
+    const [name, setName] = useState(place.name);
+    const [address, setAddress] = useState(place.address);
+    const [city, setCity] = useState(place.city);
+    const [state, setState] = useState(place.state);
+    const [country, setCountry] = useState(place.country);
+    const [price, setPrice] = useState(place.price);
+
+    const updateName = (e) => setName(e.target.value);
+    const updateAddress = (e) => setAddress(e.target.value);
+    const updateCity = (e) => setCity(e.target.value);
+    const updateState = (e) => setState(e.target.value);
+    const updateCountry = (e) => setCountry(e.target.value);
+    const updatePrice = (e) => setPrice(e.target.value);
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const newPlace = {
+        const newUpdatedPlace = {
+            ...place,
             name,
             address,
             city,
@@ -26,11 +36,14 @@ function CreateListingPage() {
             country,
             price,
         };
+        console.log(place)
 
+        let updatedPlace = await dispatch(editPlace(newUpdatedPlace));
 
-    let createdPlace = await dispatch(createPlace(newPlace));
-
-    history.push("/places")
+        history.push("/places")
+        if (!updatedPlace.id) {
+            return null;
+          }
 
       };
 
@@ -45,7 +58,7 @@ function CreateListingPage() {
         <input
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={updateName}
           required
         />
       </label>
@@ -54,7 +67,7 @@ function CreateListingPage() {
         <input
           type="text"
           value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={updateAddress}
           required
         />
       </label>
@@ -63,7 +76,7 @@ function CreateListingPage() {
         <input
           type="text"
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={updateCity}
           required
         />
       </label>
@@ -72,7 +85,7 @@ function CreateListingPage() {
         <input
           type="text"
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={updateState}
           required
         />
       </label>
@@ -81,7 +94,7 @@ function CreateListingPage() {
         <input
           type="text"
           value={country}
-          onChange={(e) => setCountry(e.target.value)}
+          onChange={updateCountry}
           required
         />
       </label>
@@ -90,14 +103,14 @@ function CreateListingPage() {
         <input
           type="text"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={updatePrice}
           required
         />
       </label>
-      <button type="submit">Create</button>
+      <button type="submit">Update</button>
       </form>
     </div>
     )
 }
 
-export default CreateListingPage;
+export default EditPlacePage;

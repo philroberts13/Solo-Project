@@ -20,4 +20,16 @@ router.get('/:id', asyncHandler(async function(req, res) {
 
 
 
+  router.delete(
+    '/:id',
+    asyncHandler(async (req, res) => {
+        const { id } = req.params;
+        const place = await Place.findByPk(id);
+        await place.destroy();
+        return res.json({ message: 'success' });
+    })
+);
+
+
+
 module.exports = router;
