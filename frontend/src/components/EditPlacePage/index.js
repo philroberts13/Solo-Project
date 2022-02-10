@@ -10,7 +10,7 @@ function EditPlacePage({places}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
-    const place = useSelector(state => state.place[id])
+    const place = useSelector(state => state.places[id])
 
     const [name, setName] = useState(place.name);
     const [address, setAddress] = useState(place.address);
