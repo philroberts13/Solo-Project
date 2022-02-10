@@ -10,6 +10,7 @@ import CreateListingPage from './components/CreateListingPage';
 import SplashPage from './components/SplashPage';
 import EditPlacePage from "./components/EditPlacePage";
 
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);

@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editPlace } from "../../store/places";
+import { useParams } from "react-router-dom";
 
 
-function EditPlacePage({place}) {
+function EditPlacePage({places}) {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const { id } = useParams();
+    const place = useSelector(state => state.place[id])
 
     const [name, setName] = useState(place.name);
     const [address, setAddress] = useState(place.address);

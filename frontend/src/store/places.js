@@ -67,13 +67,13 @@ export const createPlace = (payload) => async (dispatch) => {
     return response;
   }
 
-  export const editPlace = (payload) => async (dispatch) => {
-    const response = await csrfFetch(`/api/editForm/${payload.id}`, {
+  export const editPlace = (place) => async (dispatch) => {
+    const response = await csrfFetch(`/api/editForm/${place.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(place)
     })
-    console.log(payload)
+    console.log(place)
     if (response.ok) {
       const updatedPlace = await response.json()
       dispatch(updatePlace(updatedPlace))
