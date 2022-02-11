@@ -1,6 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Place = sequelize.define('Place', {
+    userId: DataTypes.INTEGER,
+    imageUrl: DataTypes.STRING,
     address: DataTypes.STRING,
     city: DataTypes.STRING,
     state: DataTypes.STRING,
@@ -11,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: DataTypes.DATE
   }, {});
   Place.associate = function(models) {
-    // associations can be defined here
-  };
+    Place.belongsTo(models.User, { foreignKey: 'userId' });
+    Place.hasMany(models.review, { foreignKey: 'placeId' });  };
   return Place;
 };

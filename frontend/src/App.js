@@ -9,6 +9,7 @@ import PlaceDetailPage from "./components/PlaceDetailPage";
 import CreateListingPage from './components/CreateListingPage';
 import SplashPage from './components/SplashPage';
 import EditPlacePage from "./components/EditPlacePage";
+import ReviewForm from "./components/ReviewForm";
 
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route exact path='/placesForm'>
             <CreateListingPage />
+          </Route>
+          <Route exact path='/reviews'>
+            <ReviewForm />
           </Route>
         </Switch>
       )}

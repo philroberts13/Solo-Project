@@ -8,6 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      userId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: { model: 'Users' }
+      },
       address: {
         allowNull: false,
         type: Sequelize.STRING
@@ -31,6 +36,10 @@ module.exports = {
       price: {
         allowNull: false,
         type: Sequelize.INTEGER
+      },
+      imageUrl: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

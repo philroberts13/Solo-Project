@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Redirect, useParams } from "react-router-dom";
-import placesReducer, { getPlaceById, getPlaceList } from "../../store/places";
-import * as sessionActions from "../../store/session";
+import { NavLink, useParams } from "react-router-dom";
+import { getPlaceById, getPlaceList } from "../../store/places";
 import { deletePlace } from "../../store/places";
 import { useHistory } from "react-router-dom";
+import "./placeDetailPage.css";
 
 
 function PlaceDetailPage() {
@@ -25,16 +25,19 @@ function PlaceDetailPage() {
         dispatch(getPlaceList(place?.id));
         history.push("/places")
         }
-
+        console.log(place.imageUrl)
     return (
         <div>
             <h1>{place.name}</h1>
+            <img className="image" src={place.imageUrl} alt="" />
             <ul>{place.address}</ul>
             <ul>
             {place.city}, {place.state}
             </ul>
             <ul>Per Night:  ${place.price}</ul>
-            <button>Book</button>
+            <NavLink to={`/reviews/`}>
+            <button>Review</button>
+            </NavLink>
             <NavLink to={`/editForm/${place.id}`}>
                 <button>Edit</button>
             </NavLink>

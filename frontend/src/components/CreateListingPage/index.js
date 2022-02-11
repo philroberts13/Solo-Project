@@ -12,7 +12,8 @@ function CreateListingPage() {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState();
+    const [imageUrl, setImageUrl] = useState();
 
 
     const handleSubmit = async (e) => {
@@ -25,6 +26,7 @@ function CreateListingPage() {
             state,
             country,
             price,
+            imageUrl,
         };
 
 
@@ -91,6 +93,15 @@ function CreateListingPage() {
           type="text"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Image URL
+        <input
+          type="text"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
           required
         />
       </label>
