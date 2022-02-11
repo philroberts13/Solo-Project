@@ -30,7 +30,7 @@ function CreateListingPage() {
         };
 
 
-    let createdPlace = await dispatch(createPlace(newPlace));
+    let createdPlace = dispatch(createPlace(newPlace));
 
     history.push("/places")
 
