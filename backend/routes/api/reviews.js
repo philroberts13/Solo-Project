@@ -4,22 +4,11 @@ const { Review } = require('../../db/models');
 
 const router = express.Router();
 
-router.get('/', asyncHandler(async function(req, res) {
-    const reviews = await reviews.findAll();
-    return res.json(reviews);
-  }));
-
-router.post('/', asyncHandler(async function (req, res) {
-    const review = await Review.create(req.body);
-    return res.json(review);
-  })
-);
-
-// router.get('/:id', asyncHandler(async function(req, res) {
-//   const review = await review.findByPk(req.params.id);
-
-//   return res.json(review);
+// router.get('/', asyncHandler(async function(req, res) {
+//     const reviews = await reviews.findAll();
+//     return res.json(reviews);
 //   }));
+
 
 
 
@@ -31,6 +20,11 @@ router.post('/', asyncHandler(async function (req, res) {
         await review.destroy();
         return res.json({ message: 'success' });
     })
+);
+router.post('/places/:id', asyncHandler(async function (req, res) {
+  const newReview = await Review.create(req.body);
+    return res.json(newReview);
+  })
 );
 
 router.put('/:id',asyncHandler(async function (req, res) {

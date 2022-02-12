@@ -2,6 +2,7 @@ import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getPlaceList } from "../../store/places";
+import { getReviews } from "../../store/reviews";
 import "./image.css";
 
 function PlacesPage() {

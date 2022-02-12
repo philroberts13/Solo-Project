@@ -25,21 +25,22 @@ const remove = (reviewId) => ({
     reviewId
 })
 
-export const getReviews = () => async dispatch => {
-    const response = await fetch('/api/reviews');
+// export const getReviews = () => async dispatch => {
+//     const response = await fetch(`/api/places/:id`);
 
-    if(response.ok) {
-        const list = await response.json();
-        dispatch(load(list));
-    }
-};
+//     if(response.ok) {
+//         const list = await response.json();
+//         dispatch(load(list));
+//     }
+// };
 
 export const createReview = (payload) => async (dispatch) => {
-    const response = await csrfFetch('/api/reviews', {
+    const response = await csrfFetch(`/api/reviews/places/:id/`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
-    })
+    });
+    console.log(response)
     if(response.ok){
       const newReview = await response.json()
       dispatch(addReview(newReview))
@@ -94,20 +95,21 @@ export const createReview = (payload) => async (dispatch) => {
                     ...state,
                 }
             case ADD_REVIEW:
-              if (!state[action.review.id]) {
-                const newState = {
-                    ...state,
-                    [action.review.id]: action.review
-                };
-                return newState;
-            }
-            return {
-                ...state,
-                [action.review.id]: {
-                    ...state[action.review.id],
-                    ...state.review
+                if (!state[action.review.id]) {
+                    const newState = {
+                        ...state,
+                        [action.review.id]: action.review
+                    };
+                    return newState;
                 }
-            }
+                return {
+                    ...state,
+                    [action.review.id]: {
+                        ...state[action.review.id],
+                        ...state.review
+                    }
+                }
+
             case EDIT_REVIEW:
                 const newState = {...state, [action.review.id]: action.review};
                 return newState;
@@ -122,3 +124,18 @@ export const createReview = (payload) => async (dispatch) => {
 }
 
 export default reviewsReducer;
+
+// if (!state[action.review.id]) {
+//     const newState = {
+//         ...state,
+//         [action.review.id]: action.review
+//     };
+//     return newState;
+// }
+// return {
+//     ...state,
+//     [action.review.id]: {
+//         ...state[action.review.id],
+//         ...state.review
+//     }
+// }

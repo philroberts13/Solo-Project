@@ -1,25 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import { createReview } from '../../store/reviews'
 
 
-function ReviewForm() {
+const ReviewForm = () => {
+    // const [formData, setFormData] = useState({ review: "" });
     const history = useHistory();
     const dispatch = useDispatch();
-    //   const sessionUser = useSelector((state) => state.session.user);
-    const [review, setReview] = useState("");
+    const user = useSelector((state) => state.session.user);
+    const userId = user.id
+    const [content, setContent] = useState("");
+    const {id} = useParams();
+    const idNum = Object.values(id)
+    const placeId = idNum[0]
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const newReview = {
-            review
-        }
+            content,
+            userId,
+            placeId
+        };
 
-        let createdReview = dispatch(createReview(newReview))
-        history.push("/places")
+        console.log(newReview)
+    let createdReview = dispatch(createReview(newReview));
+
+
+        history.push(`/places/${placeId}`)
     };
+
+    if (!user || !user.id) return null;
 
   return (
       <div>
@@ -28,19 +39,27 @@ function ReviewForm() {
         <label>
         <input
           type="text"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          required
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           />
       </label>
-      <button type="submit">Submit</button>
+      <button onClick={handleSubmit} type="submit">Submit</button>
     </form>
     </div>
       );
     };
 
-    export default ReviewForm;
+export default ReviewForm;
 
+
+// const payload = { userId: user.id, content: content, placeId: idNum[0]}
+//         let createdReview = dispatch(createReview(payload))
+//         console.log(payload)
+
+
+// return (
+//     <h1>HI</h1>
+// )
 
 
     // const [errors, setErrors] = useState([]);

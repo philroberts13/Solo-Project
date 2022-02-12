@@ -42,7 +42,7 @@ function App() {
           <Route exact path='/placesForm'>
             <CreateListingPage />
           </Route>
-          <Route exact path='/reviews'>
+          <Route exact path='/reviews/places/:id'>
             <ReviewForm />
           </Route>
         </Switch>

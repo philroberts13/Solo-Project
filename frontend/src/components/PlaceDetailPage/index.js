@@ -5,14 +5,22 @@ import { getPlaceById, getPlaceList } from "../../store/places";
 import { deletePlace } from "../../store/places";
 import { useHistory } from "react-router-dom";
 import "./placeDetailPage.css";
+import { getReviews } from "../../store/reviews";
 
 
 function PlaceDetailPage() {
     const dispatch = useDispatch();
     const history = useHistory();
-
     const { placeId } = useParams();
     const place = useSelector(state => (state.places[placeId]));
+    // const reviews = useSelector(state => {
+    //     return Object.values(state.reviews)
+    // })
+
+
+    // useEffect(() => {
+    //     dispatch(getReviews())
+    //   }, [dispatch]);
 
       useEffect(() => {
         dispatch(getPlaceById(placeId))
@@ -35,7 +43,10 @@ function PlaceDetailPage() {
             {place.city}, {place.state}
             </ul>
             <ul>Per Night:  ${place.price}</ul>
-            <NavLink to={`/reviews/`}>
+            <h2>Reviews</h2>
+                <li></li>
+
+            <NavLink to={`/reviews/places/${place.id}`}>
             <button>Review</button>
             </NavLink>
             <NavLink to={`/editForm/${place.id}`}>

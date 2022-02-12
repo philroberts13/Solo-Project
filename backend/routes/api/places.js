@@ -3,7 +3,6 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Place } = require('../../db/models');
-
 const router = express.Router();
 
 router.get('/', asyncHandler(async function(req, res) {
@@ -14,11 +13,16 @@ router.get('/', asyncHandler(async function(req, res) {
 
 router.get('/:id', asyncHandler(async function(req, res) {
   const place = await Place.findByPk(req.params.id);
+  // const reviews = await reviews.findAll();
+
 
   return res.json(place);
   }));
 
-
+  router.get('/:id', asyncHandler(async function(req, res) {
+    const reviews = await reviews.findAll();
+    return res.json(reviews);
+  }));
 
   router.delete(
     '/:id',
