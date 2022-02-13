@@ -66,4 +66,31 @@ router.get(
     }
   );
 
+  router.get('/demo', asyncHandler(async (req, res) => {
+    const username = "DemoUser"
+    const emailAddress = "demo@demo.demo"
+    const password = "password"
+    const demoUser = await User.findOne({ where: { emailAddress } })
+
+    if (demoUser === null) {
+        const hashedPassword = await bcrypt.hash(password, 10)
+        await User.create({
+            username, emailAddress, hashedPassword
+        })
+
+        const newUser = await User.findOne({ where: { emailAddress } })
+
+        req.session.user = newUser;
+        req.session.auth = {
+            userId: newUser.id,
+        };
+        return req.session.save(() => res.redirect('/'))
+    } else {
+        req.session.auth = {
+            userId: demoUser.id,
+        };
+        req.session.save(() => res.redirect('/'));
+    }
+}));
+
 module.exports = router;

@@ -65,7 +65,7 @@ module.exports = {
       city: "New Orleans",
       state: "LA",
       country: "USA",
-      name: "Martigra Tree",
+      name: "Happy Tree",
       price: 1000,
       imageUrl: "https://cdn.sortra.com/wp-content/uploads/2014/10/treehouse02.jpg"
       },], {});

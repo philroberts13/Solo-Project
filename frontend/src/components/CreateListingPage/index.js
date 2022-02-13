@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createPlace } from "../../store/places";
+import { createPlace, getPlaceList } from "../../store/places";
+import { useSelector } from "react-redux"
+
 
 
 function CreateListingPage() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const user = useSelector((state) => state.session.user);
+    const userId = user.id
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
-    const [price, setPrice] = useState();
-    const [imageUrl, setImageUrl] = useState();
+    const [price, setPrice] = useState(0.00);
+    const [imageUrl, setImageUrl] = useState("");
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newPlace = {
+            userId,
             name,
             address,
             city,
@@ -32,7 +37,10 @@ function CreateListingPage() {
 
     let createdPlace = dispatch(createPlace(newPlace));
 
-    history.push("/places")
+
+    history.push(`/places`)
+
+    await dispatch(getPlaceList(user?.id))
 
       };
 
@@ -100,6 +108,7 @@ function CreateListingPage() {
         Image URL
         <input
           type="text"
+          placeholder="url link hur"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           required

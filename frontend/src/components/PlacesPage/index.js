@@ -24,10 +24,10 @@ function PlacesPage() {
         <div>
             <h1>Tree Houses</h1>
             <ul>
-                {places.map(place => (
+                {places?.map(place => (
                 <ul>
                 <NavLink key={place.id} to={`/places/${place.id}`}>
-                <img src={place.imageUrl} className="image" alt=""/> {place.name}
+                <img key={place.id} src={place.imageUrl} className="image" alt=""/> {place.name}
                 </NavLink>
                 </ul>))}
             </ul>

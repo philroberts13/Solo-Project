@@ -25,14 +25,14 @@ const remove = (reviewId) => ({
     reviewId
 })
 
-// export const getReviews = () => async dispatch => {
-//     const response = await fetch(`/api/places/:id`);
+export const getReviews = () => async dispatch => {
+    const response = await fetch(`/api/places/:id`);
 
-//     if(response.ok) {
-//         const list = await response.json();
-//         dispatch(load(list));
-//     }
-// };
+    if(response.ok) {
+        const list = await response.json();
+        dispatch(load(list));
+    }
+};
 
 export const createReview = (payload) => async (dispatch) => {
     const response = await csrfFetch(`/api/reviews/places/:id/`, {

@@ -13,18 +13,6 @@ function PlaceDetailPage() {
     const history = useHistory();
     const { placeId } = useParams();
     const place = useSelector(state => (state.places[placeId]));
-    // const reviews = useSelector(state => {
-    //     return Object.values(state.reviews)
-    // })
-
-
-    // useEffect(() => {
-    //     dispatch(getReviews())
-    //   }, [dispatch]);
-
-      useEffect(() => {
-        dispatch(getPlaceById(placeId))
-      }, [placeId, dispatch]);
 
       if(!place) return null;
 
@@ -43,18 +31,34 @@ function PlaceDetailPage() {
             {place.city}, {place.state}
             </ul>
             <ul>Per Night:  ${place.price}</ul>
-            <h2>Reviews</h2>
-                <li></li>
-
-            <NavLink to={`/reviews/places/${place.id}`}>
-            <button>Review</button>
-            </NavLink>
             <NavLink to={`/editForm/${place.id}`}>
                 <button>Edit</button>
             </NavLink>
             <button onClick={removePlace}>Delete</button>
+            <h2>Reviews</h2>
+            {place?.Reviews?.map(review => (
+                <li key={review.id}>{review.content}</li>
+            ))}
+            <NavLink to={`/reviews/places/${place.id}`}>
+            <button>Review</button>
+            </NavLink>
         </div>
     )
 }
 
 export default PlaceDetailPage;
+
+
+// const reviews = useSelector(state => {
+    //     return Object.values(state.reviews)
+    // })
+
+
+    // useEffect(() => {
+    //     dispatch(getReviews())
+    //   }, [dispatch]);
+
+    //   useEffect(() => {
+    //     dispatch(getPlaceById(placeId))
+    //   }, [placeId, dispatch]);
+    // place.Review.map()
