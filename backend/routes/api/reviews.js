@@ -12,22 +12,23 @@ const router = express.Router();
 
 
 
-  router.delete(
-    '/:id',
-    asyncHandler(async (req, res) => {
-        const { id } = req.params;
-        const review = await review.findByPk(id);
-        await review.destroy();
-        return res.json({ message: 'success' });
-    })
-);
+//   router.delete(
+//     '/editReviewForm/id/:id',
+//     asyncHandler(async (req, res) => {
+//         const { id } = req.params;
+//         const review = await review.findByPk(id);
+
+//         await review.destroy();
+//         return res.json({ message: 'success' });
+//     })
+// );
 router.post('/places/:id', asyncHandler(async function (req, res) {
   const newReview = await Review.create(req.body);
     return res.json(newReview);
   })
 );
 
-router.put('/:id',asyncHandler(async function (req, res) {
+router.put('/EditReviewForm/',asyncHandler(async function (req, res) {
     const { } = req.body;
     await review.update({  }, {where: {id: req.params.id} })
     const review = await review.findByPk(req.params.id)

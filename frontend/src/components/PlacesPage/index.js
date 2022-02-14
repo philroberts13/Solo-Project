@@ -18,6 +18,7 @@ function PlacesPage() {
         dispatch(getPlaceList())
       }, [dispatch]);
 
+
       if(!places) return null;
 
     return (

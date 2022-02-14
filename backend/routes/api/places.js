@@ -36,6 +36,16 @@ router.get('/:id', asyncHandler(async function(req, res) {
     })
 );
 
+router.delete(
+  '/editReviewForm/id/:id',
+  asyncHandler(async (req, res) => {
+      const { id } = req.params;
+      const review = await review.findByPk(id);
+
+      await review.destroy();
+      return res.json({ message: 'success' });
+  })
+);
 
 
 module.exports = router;

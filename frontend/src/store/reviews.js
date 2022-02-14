@@ -20,7 +20,7 @@ const editReview = (review) => ({
     review
 });
 
-const remove = (reviewId) => ({
+const removeReview = (reviewId) => ({
     type: REMOVE_REVIEW,
     reviewId
 })
@@ -40,7 +40,6 @@ export const createReview = (payload) => async (dispatch) => {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     });
-    console.log(response)
     if(response.ok){
       const newReview = await response.json()
       dispatch(addReview(newReview))
@@ -50,7 +49,7 @@ export const createReview = (payload) => async (dispatch) => {
   }
 
   export const updateReview = (review) => async (dispatch) => {
-    const response = await csrfFetch(`/api/editReviewForm/${review.id}`, {
+    const response = await csrfFetch(`/api/EditReviewForm/${review.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(review)
@@ -65,20 +64,6 @@ export const createReview = (payload) => async (dispatch) => {
     return response;
   }
 
-  export const deleteReview = (reviewId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-    if (response.ok) {
-        const deletedReview = await response.json();
-        dispatch(remove(reviewId));
-        return deletedReview;
-    }
-    };
 
     const initialState = {}
 

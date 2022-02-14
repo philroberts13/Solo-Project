@@ -43,6 +43,7 @@ function CreateListingPage() {
     await dispatch(getPlaceList(user?.id))
 
       };
+      if (!user || !user.id) return null;
 
     return (
     <div>

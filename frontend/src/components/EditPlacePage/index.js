@@ -39,7 +39,6 @@ function EditPlacePage({places}) {
             country,
             price,
         };
-        console.log(place)
 
         let updatedPlace = await dispatch(editPlace(newUpdatedPlace));
 

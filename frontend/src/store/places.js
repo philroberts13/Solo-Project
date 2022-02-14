@@ -5,6 +5,7 @@ const ADD_PLACE = 'places/ADD_PLACE';
 const LOAD_ONE = 'places/LOAD_ONE'
 const UPDATE_PLACE = 'places/UPDATE_PLACE'
 const REMOVE_PLACE = 'places/REMOVE_PLACE'
+const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
 
 
 const load = list => ({
@@ -30,6 +31,11 @@ const updatePlace = (place) => ({
 const remove = (placeId) => ({
     type: REMOVE_PLACE,
     placeId
+})
+
+const removeReview = (reviewId) => ({
+    type: REMOVE_REVIEW,
+    reviewId
 })
 
 export const getPlaceList = () => async dispatch => {
@@ -91,11 +97,19 @@ export const createPlace = (payload) => async (dispatch) => {
         },
     });
 
+    export const deleteReview = (reviewId) => async (dispatch) => {
+        const response = await csrfFetch(`/api/editReviewForm/id/:id`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
     if (response.ok) {
         const deletedPlace = await response.json();
-        dispatch(remove(placeId));
+        dispatch(removeReview(placeId));
         return deletedPlace;
-    }
+        }
     };
 
 const initialState = {}
@@ -143,14 +157,15 @@ const placesReducer = (state = initialState, action) => {
                 delete newState[action.placeId];
                 return newState;
             }
+        case REMOVE_REVIEW: {
+                const newState = { ...state };
+                delete newState[action.review];
+                return newState;
+            }
 
         default: return state;
     }
+  }
 }
 
 export default placesReducer;
-
-
-// const placeList = newState.list.map(id => newState[id]);
-// placeList.push(action.place);
-// newState.list = placeList;

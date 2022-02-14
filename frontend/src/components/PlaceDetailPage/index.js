@@ -4,24 +4,37 @@ import { NavLink, useParams } from "react-router-dom";
 import { getPlaceById, getPlaceList } from "../../store/places";
 import { deletePlace } from "../../store/places";
 import { useHistory } from "react-router-dom";
+import { deleteReview } from "../../store/reviews";
 import "./placeDetailPage.css";
-import { getReviews } from "../../store/reviews";
 
 
 function PlaceDetailPage() {
     const dispatch = useDispatch();
     const history = useHistory();
     const { placeId } = useParams();
+    const user = useSelector((state) => state.session.user);
     const place = useSelector(state => (state.places[placeId]));
+    const reviews = useSelector(state => (place.Reviews))
+    console.log(reviews)
 
-      if(!place) return null;
 
-      const removePlace = async (e) => {
+
+    const removePlace = async (e) => {
         await dispatch(deletePlace(placeId));
         dispatch(getPlaceList(place?.id));
         history.push("/places")
-        }
-        console.log(place.imageUrl)
+    }
+
+    // const removeReview = async (e) => {
+    //     await dispatch(deleteReview(reviews.id));
+    //     dispatch(getPlaceList(place?.id));
+    //     history.push("/places")
+    // }
+
+    useEffect(() => {
+        dispatch(getPlaceList(user?.id))
+    }, [dispatch]);
+    if(!place) return null;
     return (
         <div>
             <h1>{place.name}</h1>
@@ -37,7 +50,12 @@ function PlaceDetailPage() {
             <button onClick={removePlace}>Delete</button>
             <h2>Reviews</h2>
             {place?.Reviews?.map(review => (
-                <li key={review.id}>{review.content}</li>
+                <NavLink to={`/editReviewForm/${place.id}/${review.id}`}>
+                <li key={review.id}>{review.content}
+                {/* <button onClick={removeReview(review.id)}>Delete</button> */}
+                </li>
+                </NavLink>
+
             ))}
             <NavLink to={`/reviews/places/${place.id}`}>
             <button>Review</button>
